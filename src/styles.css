@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+
+.pointer {
+    cursor: pointer;
+}
+
+
+.nav-link {
+    transition: color 0.3s ease;
+  }
+  
+nav ul li a.active-nav-scroll {
+    color: rgb(0, 0, 0) !important; /* or any other style for the active state */
+}
+
+.nav-link.active-link {
+    color: #ffffff !important;
+}
+
+.quantity-input {
+    /* width: 55px; */
+    min-width: 35px;
+    font-size: .85rem;
+}
+
+/********** Red border validation ************/
+/* button:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+} */
+  
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid,
+select.ng-touched.ng-invalid {
+  border: 2px solid red !important;
+  outline: none;
+}
+
+/* .border-red {
+  border: 2px solid red !important;
+  outline: none;
+} */
+/********** End Red border validation ************/

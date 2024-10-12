@@ -1,0 +1,9 @@
+
+@media screen and (max-width: 768px) {
+    section {
+        display: none !important;
+    }
+    section.slider-mobile {
+        display: flex !important;
+    }
+}

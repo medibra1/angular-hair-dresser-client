@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- NAV -->
+        <app-nav [settings]="settings"></app-nav>
+        <!-- NAV -->
+
+        <div class="col-md-8 ms-sm-auto col-lg-9 p-0">
+            <app-hero [settings]="settings"></app-hero>
+            <router-outlet></router-outlet>
+            <app-footer [settings]="settings"></app-footer>
+        </div>
+    </div>
+</div>
+<!-- TODO: added 2 /DIV -->
+<app-loader></app-loader>

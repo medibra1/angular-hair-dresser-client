@@ -1,0 +1,91 @@
+<!-- <div class="container section-padding">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Book an Appointment</h3>
+          <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" formControlName="name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" formControlName="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" formControlName="phone" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" formControlName="date" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="time">Time</label>
+              <div class="time-slots">
+                <button type="button" *ngFor="let slot of timeSlots" class="btn" 
+                        [ngClass]="{ 'btn-secondary': isSlotBooked(slot), 'btn-primary': !isSlotBooked(slot) }" 
+                        (click)="appointmentForm.controls['time'].setValue(slot)" 
+                        [disabled]="isSlotBooked(slot)">
+                  {{ slot }}
+                </button>
+              </div>
+            </div>
+            <button [disabled]="loading" class="btn btn-primary">Submit</button>
+          </form>
+          <div *ngIf="success" class="alert alert-success mt-3">{{ success }}</div>
+          <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  -->
+
+
+<!-- <div class="container mt-5">
+  <h2>Book an Appointment</h2>
+  <form [formGroup]="appointmentForm" (ngSubmit)="bookAppointment()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control" [ngClass]="{'is-invalid': appointmentForm.get('name').invalid && appointmentForm.get('name').touched}">
+      <div class="invalid-feedback" *ngIf="appointmentForm.get('name').invalid && appointmentForm.get('name').touched">
+        Please enter a valid name.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid': appointmentForm.get('email').invalid && appointmentForm.get('email').touched}">
+      <div class="invalid-feedback" *ngIf="appointmentForm.get('email').invalid && appointmentForm.get('email').touched">
+        Please enter a valid email address.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone</label>
+      <input type="text" id="phone" formControlName="phone" class="form-control" [ngClass]="{'is-invalid': appointmentForm.get('phone').invalid && appointmentForm.get('phone').touched}">
+      <div class="invalid-feedback" *ngIf="appointmentForm.get('phone').invalid && appointmentForm.get('phone').touched">
+        Please enter a valid phone number.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input type="date" id="date" formControlName="date" class="form-control" (change)="onDateChange($event)" [ngClass]="{'is-invalid': appointmentForm.get('date').invalid && appointmentForm.get('date').touched}">
+      <div class="invalid-feedback" *ngIf="appointmentForm.get('date').invalid && appointmentForm.get('date').touched">
+        Please select a date.
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="mb-3">
+        <label for="time" class="form-label">Time</label>
+        <label for="time">Time</label>
+        <div class="time-slots">
+          <button type="button" *ngFor="let slot of availableSlots" class="btn btn-primary" 
+            (click)="appointmentForm.controls['time'].setValue(slot)">{{ slot }}</button>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="appointmentForm.invalid">Book Appointment</button>
+  </form>
+</div> -->
+
+<app-appointment-form></app-appointment-form>

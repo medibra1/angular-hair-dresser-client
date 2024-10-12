@@ -1,0 +1,68 @@
+<!-- <div class="services-thumb">
+        <img [src]="product?.image" class="services-image img-fluid"
+            alt="">
+
+        <div class="services-info d-flex align-items-end">
+            <h4 class="mb-0 my-h4">{{product?.name}}</h4>
+
+            <strong class="services-thumb-price">{{product.price}}kr</strong>
+        </div>
+    </div> -->
+
+<!-- <div class="card mb-4">
+        <img src="assets/images/services/woman-cutting-hair-man-salon.jpg" class="card-img-top img-fluid" alt="{{' item.name' }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ 'item.name' }}</h5>
+          <p class="card-text">{{ 'item.description' }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="h5">{{46 }}</span>
+            <button class="btn btn-primary">Buy</button>
+          </div>
+        </div>
+    </div> -->
+
+<!-- <div class="card mb-4 position-relative">
+    <img [src]="product.image" class="card-img-top" [alt]="product.name">
+    <div class="position-absolute top-0 start-0 m-2">
+        <span *ngFor="let tag of product.tags" class="badge me-1" [ngClass]="getTagClass(tag)">{{ tag }}</span>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <span *ngIf="product.promo_price" class="text-muted text-decoration-line-through">{{ product.price |
+                    currency }}</span>
+                <span class="h5 ms-2">{{ product.promo_price ? (product.promo_price | currency) : product.price |
+                    currency }}</span>
+            </div>
+            <button class="btn btn-primary" (click)="addToCart(product)">Buy</button>
+        </div>
+    </div>
+</div> -->
+
+<div class="card h-100">
+    <div class="position-relative">
+        <!-- TODO: nav by slug -->
+        <!-- <img [src]="item.images[0]" class="card-img-top" [alt]="item.name" [routerLink]="['/products', item.id]"> -->
+        <img [src]="item.images[0]" class="card-img-top" [alt]="item.name" [routerLink]="['/products', item.slug]">
+        <div class="position-absolute top-0 start-0 m-2">
+            <span *ngFor="let tag of item.tags" class="badge me-1" [ngClass]="getTagClass(tag)">{{ tag }}</span>
+        </div>
+    </div>
+    <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ item.name }}</h5>
+        <p class="card-text">{{ item.description }}</p>
+        <div class="mt-auto">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex flex-wrap">
+                    <span *ngIf="item.promo_price" class="text-muted text-decoration-line-through d-block">{{
+                        item.price }} kr</span>
+                    <span class="h5 ms-2 d-block">{{ item.promo_price ? item.promo_price: item.price }} kr</span>
+                </div>
+                <button class="btn btn-primary" (click)="addCart()"><i class="bi bi-cart"></i></button>
+                <button class="btn btn-secondary" (click)="makePayment(item)"><i class="bi bi-credit-card"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

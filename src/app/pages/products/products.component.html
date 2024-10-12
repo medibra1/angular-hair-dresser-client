@@ -1,0 +1,25 @@
+
+<section class="section-padding">
+    <div class="container">
+        <h2 class="mb-5">Products list</h2>
+    
+         <div class="row mb-4">
+            <div class="col-12 col-md-6 mb-2 mb-md-0">
+                <input type="text" class="form-control" placeholder="Search a product"
+                    (input)="searchProducts($event)">
+            </div>
+            <div class="col-12 col-md-6">
+                <select class="form-select" (change)="filterByCategory($event)">
+                    <option value="">All categories</option>
+                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+            </div>
+        </div>
+    
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col" *ngFor="let item of filteredList">
+                <app-product-item [item]="item" (addToCart)="addToCart($event)"></app-product-item>
+            </div>
+        </div>
+    </div>
+</section>

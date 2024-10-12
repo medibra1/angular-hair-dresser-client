@@ -1,0 +1,168 @@
+.sub-nav {
+  background-color: var(--white-color);
+  white-space: nowrap;
+  min-width: 200px;
+  /* min-width: 100%; */
+  z-index: 1;
+  top: 0;
+  right: -60%;
+  margin: 0px;
+  padding: 0 0 15px 0;
+  border-radius: 10px;
+  /* max-width: 90%; */
+}
+
+@media screen and (max-width: 1690px) {
+  .sub-nav {
+    /* min-width: 200px; */
+    right: 0;
+    min-width: 100%;
+  }
+}
+
+.sub-nav li {
+  list-style: none;
+}
+
+.box {
+  box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+
+.none {
+  display: none;
+}
+
+.sub-nav li a {
+  display: block;
+  padding: 15px 10px 0 10px;
+  font-size: 1.2rem;
+  /* height: 30px;
+    line-height: 30px; */
+}
+
+ul li a i {
+  font-size: 1.2rem;
+}
+
+i.bi-cart {
+  font-size: 2.1rem !important;
+}
+
+.sub-nav li a:hover {
+  color: var(--main-color);
+}
+
+.sub-nav li a.active {
+  border-top: 2px solid var(--primary-color);
+}
+
+/* Cart */
+.cart-item-number {
+  /* color: #1d1d1d; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  padding-bottom: 4px;
+}
+/* Cart */
+
+/* ************* */
+
+/* .menu-icon {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 2;
+    background: #43b853;
+    color: white;
+    border-radius: 50%;
+} */
+
+.icon-container {
+  /* 
+    position: absolute;
+    top: 20px;
+    left: 17px;
+    */
+  height: 25px;
+  width: 25px;
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+.bar-icon {
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+  position: absolute;
+}
+
+.horizontal {
+  position: relative;
+  float: left;
+  margin-top: 3px;
+  transition: all 0.6s;
+}
+
+.diagonal {
+  position: relative;
+  float: left;
+  transition: all 0.6s;
+}
+
+.diagonal-1 {
+  transition: all 0.3s;
+}
+
+.diagonal-2 {
+  margin-top: 3px;
+  transition: all 0.3s;
+}
+
+.bar-horizontal-active {
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.diagonal-1-active {
+  transform: rotate(135deg);
+  margin-top: 8px;
+  transition: all 0.3s;
+}
+
+.diagonal-2-active {
+  transform: rotate(-135deg);
+  margin-top: -9px;
+  transition: all 0.3s;
+}
+
+/* .sidebar {
+transition: transform 0.5s !important;
+transform: translateY(-100%) !important;
+transition: transform 500ms ease-in-out !important;
+} */
+
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100vw;
+        transition: transform 0.5s;
+        transform: translateY(-100%);
+        transition: transform 500ms ease-in-out;
+    }
+    .display-menu-mobile {
+        transform: translateY(0);
+    }
+}
+
+

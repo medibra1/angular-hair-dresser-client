@@ -1,0 +1,86 @@
+<!-- <button class="navbar-toggler d-md-none" type="button" (click)="toggleDisplayNavBar()">
+  <span class="navbar-toggler-icon"></span>
+</button> -->
+
+<!-- <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+  aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button> -->
+
+<button class="navbar-toggler d-md-none" type="button" (click)="toggleMenu()">
+  <div class="icon-container">
+    <div class="bar-icon diagonal diagonal-1 " [ngClass]="{'diagonal-1-active' : isActive}"></div>
+    <div class="bar-icon horizontal" [ngClass]="{'bar-horizontal-active' : isActive, }"></div>
+    <div class="bar-icon diagonal diagonal-2" [ngClass]="{'diagonal-2-active' : isActive}"></div>
+  </div>
+</button>
+
+<!-- <div class="menu-icon">
+  <div class="icon-continer" (click)="toggleMenu()">
+    <div class="bar-icon diagonal diagonal-1 " [ngClass]="{'diagonal-1-active' : isActive}"></div>
+    <div class="bar-icon horizontal" [ngClass]="{'bar-horizontal-active' : isActive, }"></div>
+    <div class="bar-icon diagonal diagonal-2" [ngClass]="{'diagonal-2-active' : isActive,  isActive}"></div>
+  </div>
+</div> -->
+
+
+<nav id="sidebarMenu" class="col-md-4 col-lg-3 d-md-block sidebar p-0" [ngClass]="{'display-menu-mobile': isActive}">
+
+  <div class="position-sticky sidebar-sticky d-flex flex-column justify-content-center align-items-center">
+    <a class="navbar-brand" routerLink="/home" href="javascript:void(0)">
+      <!-- <img src="assets/images/templatemo-barber-logo.png" class="logo-image img-fluid" align=""> -->
+      <img [src]="settings?.logo" [routerLink]="['/home']" alt="logo" class="logo-image img-fluid" align="">
+    </a>
+
+    <ul class="nav flex-column">
+      <li class="nav-item relative" (click)="toggleDisplaySubNav($event)">
+        <!-- <li class="nav-item relative" (click)="scrollToSection('section_1')"> -->
+        <a class="nav-link " [routerLink]="['/home']" routerLinkActive="active-link"
+          [class.active-nav-scroll]="activeSection === 'section_1'">Home
+          <i class="bi-chevron-down"></i></a>
+
+        <ul class="sub-nav absolute box text-start" *ngIf="displaySubNav" [@slideDownUp]>
+          <!-- <ul class="my-sub-nav"> -->
+          <!-- <li (click)="scrollToSection('section_1')">
+            <a [class.active]="activeSection === 'section_1'"
+              href="javascript:void(0)">Home</a>
+          </li> -->
+          <li (click)="scrollToSection('section_2')"  (click)="toggleMenu()">
+            <a [class.active-nav-scroll]="activeSection === 'section_2'" href="javascript:void(0)">Our
+              Story</a>
+          </li>
+          <li (click)="scrollToSection('section_3')"  (click)="toggleMenu()">
+            <a [class.active-nav-scroll]="activeSection === 'section_3'" href="javascript:void(0)">Services</a>
+          <li (click)="scrollToSection('section_4')"  (click)="toggleMenu()">
+            <a [class.active-nav-scroll]="activeSection === 'section_4'" href="javascript:void(0)">Price
+              List</a>
+          <li (click)="scrollToSection('section_5')"  (click)="toggleMenu()">
+            <a [class.active-nav-scroll]="activeSection === 'section_5'" href="javascript:void(0)">Contact</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item" (click)="toggleMenu()">
+        <a class="nav-link" [routerLink]="['/products']" routerLinkActive="active-link"
+          href="javascript:void(0)">Shopping</a>
+      </li>
+
+      <li class="nav-item"  (click)="toggleMenu()">
+        <a class="nav-link" [routerLink]="['/appointment']" routerLinkActive="active-link"
+          href="javascript:void(0)">Appointement</a>
+      </li>
+
+      <!-- <li class="nav-item"  (click)="toggleMenu()">
+        <a class="nav-link" [routerLink]="['/auth']" routerLinkActive="active-link" href="javascript:void(0)">Login</a>
+      </li> -->
+
+      <li class="nav-item "  (click)="toggleMenu()">
+        <a class="nav-link" [routerLink]="['/cart']" routerLinkActive="active-link" href="javascript:void(0)">
+          <i class="bi bi-cart relative"></i>
+          <span class="cart-item-number absolute">{{cartItemCount}}</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</nav>

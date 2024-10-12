@@ -1,0 +1,64 @@
+
+<section class="section-padding">
+
+  <div class="container mt-4" *ngIf="cartItems.length > 0; else emptyCart">
+    <h3>Your cart</h3>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cartItems">
+                <td>
+                  <button type="button" class="btn-close me-2" (click)="removeItem(item)"></button>
+                  <img [src]="item.images[0]" alt="{{ item.name }}" class="img-thumbnail me-2" style="width: 50px;">
+                  {{ item.name }}
+                  <span *ngIf="item.selected_model || item.selected_color">({{ item.selected_model ?  'item.selected_model'+', ' : ''}}{{ item.selected_color }}) </span>
+                </td>
+                <td>
+                  <span *ngIf="item.promo_price" class="text-muted text-decoration-line-through">{{ item.price }} kr</span>
+                  <span class="text-danger ms-2">{{ item.promo_price ? item.promo_price: item.price }} kr</span>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-secondary" (click)="decrementQuantity(item)">-</button>
+                    <input type="text" class="form-control mx-2 text-center quantity-input" [value]="item.quantity" readonly>
+                    <button class="btn btn-outline-secondary" (click)="incrementQuantity(item)">+</button>
+                  </div>
+                </td>
+                <td>{{ (item.promo_price ? item.promo_price : item.price) * item.quantity }} kr</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end fw-bold">Delivery charge:</td>
+                <td> {{deliveryCharge }} kr</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-secondary btn-sm me-sm-0 me-sm-2" (click)="clearCart()">Clear cart</button>
+          <h5>Total: {{ totalPrice }} kr</h5>
+          <button class="btn btn-primary btn-sm" (click)="proceedToCheckout()">Make Payment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #emptyCart>
+    <div class="container mt-4 text-center">
+      <h4>Your Cart is Empty</h4>
+      <a routerLink="/products" class="btn btn-primary">Continue your purchases</a>
+    </div>
+  </ng-template>
+  
+</section>
+
+
+  

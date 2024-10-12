@@ -1,0 +1,27 @@
+<div class="modal-backdrop" (click)="close()"></div>
+<div class="modal-content" [ngClass]="{'modal-sm': size === 'sm', 'modal-md': size === 'md', 'modal-lg': size === 'lg'}">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="btn-close" (click)="close()"></button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngIf="isStringContent">
+      <p>{{ content }}</p>
+    </ng-container>
+    <ng-container *ngIf="isArrayContent">
+      <ul>
+        <li *ngFor="let item of contentAsArray">{{ item }}</li>
+      </ul>
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="close()">Fermer</button>
+  </div>
+</div>
+
+
+  
+
+
+
+

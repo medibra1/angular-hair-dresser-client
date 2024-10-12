@@ -1,0 +1,10 @@
+section {
+    margin-bottom: 50px !important;
+  }
+  
+  
+  .selected-slot {
+    /* background-color: #007bff; */
+    background-color: #3e3c3c;
+    color: white;
+  }

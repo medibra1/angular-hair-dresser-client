@@ -1,0 +1,46 @@
+<ul class="social-icon">
+    <li class="social-icon-item">
+        <a 
+            href="{{settings.facebook}}"
+            (click)="!settings.facebook ? $event.preventDefault() : '' "
+             target="{{settings.facebook ? '_blank' : '_self'}}"
+            class="social-icon-link bi-facebook">
+        </a>
+    </li>
+
+    <li class="social-icon-item" *ngIf="settings.twitter">
+        <a 
+            href="{{settings.twitter}}"
+            (click)="!settings.twitter ? $event.preventDefault() : '' "
+            target="{{settings.twitter ? '_blank' : '_self'}}"
+            class="social-icon-link bi-twitter">
+        </a>
+    </li>
+
+    <li class="social-icon-item">
+        <a 
+            href="{{settings.instagram}}"
+            (click)="!settings.instagram ? $event.preventDefault() : '' "
+            target="{{settings.instagram ? '_blank' : '_self'}}"
+            class="social-icon-link bi-instagram">
+        </a>
+    </li>
+
+    <li class="social-icon-item" *ngIf="settings.youtube">
+        <a 
+            href="{{settings.youtube}}"
+            (click)="!settings.youtube ? $event.preventDefault() : '' "
+            target="{{settings.youtube ? '_blank' : '_self'}}"
+            class="social-icon-link bi-youtube">
+        </a>
+    </li>
+
+    <li class="social-icon-item">
+        <a 
+            href="{{settings.whatsapp}}"
+            (click)="!settings.whatsapp ? $event.preventDefault() : '' "
+            target="{{settings.whatsapp ? '_blank' : '_self'}}"
+            class="social-icon-link bi-whatsapp">
+        </a>
+    </li>
+</ul>

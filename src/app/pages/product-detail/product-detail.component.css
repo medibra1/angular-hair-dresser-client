@@ -1,0 +1,61 @@
+.container {
+    padding: 20px;
+  }
+  
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .badge {
+    font-size: 1rem;
+  }
+  
+  .text-muted {
+    color: #6c757d;
+  }
+  
+  .text-decoration-line-through {
+    text-decoration: line-through;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+  }
+  
+  .h4 {
+    font-size: 1.5rem;
+  }
+
+  .badge {
+  cursor: pointer;
+}
+
+.badge.active {
+  border: 2px solid black;
+}
+
+input {
+  max-width: 50px;
+}
+
+/* .full-width {
+  width: 100%;
+} */
+
+.border-green {
+  border: 1px solid #198754;
+}
+.border-black {
+  border: 1px solid rgb(136, 136, 136);
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+
+
+
+  
