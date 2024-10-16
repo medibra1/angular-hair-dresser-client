@@ -8,7 +8,6 @@ import { HeroComponent } from './components/hero/hero.component';
 import { ISetting } from './models/seeting';
 import { SettingsService } from './services/settings/settings.service';
 import { LoaderComponent } from './components/loader/loader.component';
-import { IResponse } from './models/Response';
 
 @Component({
   selector: 'app-root',

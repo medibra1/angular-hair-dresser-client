@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { GlobalService } from '../global/global.service';
-import { HttpEvent, HttpHandler, HttpHandlerFn, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 

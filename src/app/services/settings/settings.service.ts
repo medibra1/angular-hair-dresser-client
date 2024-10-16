@@ -14,6 +14,11 @@ export class SettingsService {
   get settings$() {
     return this.settingsSubject.asObservable();
   }
+
+  private appointmentSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  get appointementSettings$() {
+    return this.appointmentSettingsSubject.asObservable();
+  }
   
   constructor() { }
 
@@ -28,5 +33,18 @@ export class SettingsService {
       console.log(error);
     }
   }
+
+  async loadAppointmentSettings() {
+    try {
+      // const data = await firstValueFrom(this.api.get(this.settings_api_url));
+      const data = await firstValueFrom(this.api.get('appointment-settings'));
+      console.log('++++ appointement settings +++++: ', data);
+      this.appointmentSettingsSubject.next(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
 }

@@ -6,7 +6,7 @@ import { AppointmentService } from '../../services/appointment/appointment.servi
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormErrorMsgComponent } from '../form-error-msg/form-error-msg.component';
 import { SettingsService } from '../../services/settings/settings.service';
-import { ISetting } from '../../models/seeting';
+import { IAppointmentSetting } from '../../models/appointment-setting';
 
 @Component({
   selector: 'app-appointment-form',
@@ -24,7 +24,7 @@ export class AppointmentFormComponent {
   servicesSub: Subscription;
   services: any[]  = [];
   minDate: string = '';
-  settings: ISetting = {} as ISetting;
+  settings: IAppointmentSetting = {} as IAppointmentSetting;
   // slotActive = false;
   selectedSlot: string | null = null;
   // minDate: string = new Date().toISOString().split('T')[0];
@@ -36,7 +36,7 @@ export class AppointmentFormComponent {
   error = '';
 
   excludedDates: string[] = [];
-  excludedDays: number[] = [];
+  excludedDays: string[] = [];
 
   // @ViewChild('dateInput') dateInput!: ElementRef;
   constructor(
@@ -62,6 +62,7 @@ export class AppointmentFormComponent {
     // Initialize minDate with today's date
     const today = new Date();
     this.minDate = this.datePipe.transform(today, 'yyyy-MM-dd')!;
+    this.settingsService.loadAppointmentSettings();
     this.getSettings();
     this.getServices();
   }
@@ -72,10 +73,11 @@ export class AppointmentFormComponent {
   // }
 
   getSettings() {
-    this.settingsService.settings$
-    .pipe(
-      filter(settings => Object.keys(settings).length > 0), // Filtrer les objets non vides
-      take(1))
+    this.settingsService.appointementSettings$
+    // .pipe(
+    //   filter(settings => Object.keys(settings).length > 0), // Filtrer les objets non vides
+    //   // take(1)
+    // )
     .subscribe({
       next: settings => {
         this.settings = settings;
@@ -83,6 +85,7 @@ export class AppointmentFormComponent {
       }
     });
   }
+
 
   getServices() {
     this.servicesSub =  this.global.services$
@@ -107,18 +110,21 @@ export class AppointmentFormComponent {
     const [year, month, day] = date.split('-').map(Number);
     const parseToDate = new Date(year, month - 1, day); // Ajustement du mois (0-11 pour JS Date)
     const dayOfWeek = parseToDate.getDay() === 0 ? 7 : parseToDate.getDay(); // Ajuster dimanche (0) à 7
-    return this.excludedDates.includes(date) || this.excludedDays.includes(dayOfWeek);
+    return this.excludedDates.includes(date) || this.excludedDays.includes(dayOfWeek.toString());
   }
 
   onDateChange(event: any): void {
+    // console.log('ON DATE CHANGE: ', this.settings);
     this.selectedDate = event.target.value;
-    const start_time = this.settings.opening_time;
-    const end_time = this.settings.closing_time;
+    const start_time = this.settings.start_time;
+    const end_time = this.settings.end_time;
     // const start_time = '10:00';
     // const end_time = '20:00';
-    const interval_minute = 30;
     // this.excludedDates = ['2024-05-31', '2024-06-03']; // Dates spécifiques à exclure;
-    this.excludedDays = [7]; // 6 = Samedi, 7 = Dimanche
+    // this.excludedDays = [7]; // 6 = Samedi, 7 = Dimanche
+    const interval_minute = this.settings.interval || 30;
+    this.excludedDates = this.settings.off_dates; 
+    this.excludedDays = this.settings.off_days; 
     this.isDateUnavailable = false;
     if (this.isExcludedDate(this.selectedDate)) {
       this.appointmentForm.controls['date'].setValue(null);

@@ -1,8 +1,8 @@
 import { Component, Input, inject } from '@angular/core';
 import { GlobalService } from '../../services/global/global.service';
-import { Subscription, filter, skip, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { ISetting } from '../../models/seeting';
 
 @Component({

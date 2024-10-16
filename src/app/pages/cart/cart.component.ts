@@ -4,9 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart/cart.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { GlobalService } from '../../services/global/global.service';
 import { SettingsService } from '../../services/settings/settings.service';
-import { filter, skip, take } from 'rxjs';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
