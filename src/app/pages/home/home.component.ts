@@ -98,6 +98,9 @@ export class HomeComponent {
 
   formatTime(time: string): string {
     // Convert "10:00:00" to a Date object assuming it's today
+    if(!time) {
+      return null;
+    }
     const [hours, minutes, seconds] = time.split(':').map(Number);
     const date = new Date();
     date.setHours(hours, minutes, seconds);

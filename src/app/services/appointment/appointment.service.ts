@@ -58,12 +58,14 @@ export class AppointmentService {
   private api = inject(ApiService);
   constructor() {}
 
-  getAvailableSlots(date, start_time, end_time, intervalMinutes): Observable<string[]> {
+  getAvailableSlots(date, start_time, end_time, intervalMinutes, pause_start_time, pause_end_time): Observable<string[]> {
     const params = new HttpParams()
       .set('date', date)
       .set('start_time', start_time)
       .set('end_time', end_time)
-      .set('interval_minute', intervalMinutes.toString());
+      .set('interval_minute', intervalMinutes)
+      .set('pause_start_time', pause_start_time)
+      .set('pause_end_time', pause_end_time);
     return this.api.get('available-slots', params);
   }
 

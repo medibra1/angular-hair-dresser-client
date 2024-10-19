@@ -1,10 +1,29 @@
+
 section {
-    margin-bottom: 50px !important;
-  }
-  
-  
-  .selected-slot {
-    /* background-color: #007bff; */
-    background-color: #3e3c3c;
-    color: white;
-  }
+  margin-bottom: 50px !important;
+}
+
+.selected-slot {
+  /* background-color: #007bff; */
+  background-color: #3e3c3c;
+  color: white;
+}
+
+.error-border {
+  border: 2px solid red;
+}
+.error-border:hover {
+  border: 2px solid red;
+}
+
+/* input[type="date"]:before {
+  content: attr(placeholder) !important;
+  color: #808080;
+  font-size: .9rem;
+  margin-right: 0.5em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+  content: "";
+} */
+

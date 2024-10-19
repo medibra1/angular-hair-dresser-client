@@ -4,7 +4,7 @@
     <div class="row">
 
       <div class="col-lg-10 col-12 mx-auto">
-        <form [formGroup]="appointmentForm" (ngSubmit)="bookAppointment()" class="custom-form booking-form"
+        <form [formGroup]="appointmentForm" class="custom-form booking-form"
           id="bb-booking-form" role="form" autocomplete="on">
 
           <div *ngIf="success" class="alert alert-success mt-3">{{ success }}</div>
@@ -57,19 +57,23 @@
               </div>
 
               <div class="col-lg-6 col-12">
-                <input type="date" id="bb-date" [min]="minDate" formControlName="date" class="form-control mb-0"
-                  placeholder="Date" (change)="onDateChange($event)">
+                <!-- <input type="date" id="bb-date" [min]="minDate" formControlName="date" class="form-control mb-0" (change)="onDateChange($event)" placeholder="Date"> -->
+                <input type="date" placeholder="Date" id="date-input" [min]="minDate" formControlName="date" class="form-control mb-0"
+                  #dateInput style="display: none;" (change)="onDateChange($event)" placeholder="Date">
+                <button (click)="openDatePicker($event)" id="date-input-btn" class="form-control" 
+                [ngClass]="{'error-border': appointmentForm.get('date')?.invalid && appointmentForm.get('date')?.touched}">Choose Date </button>
                 <div class="mb-2">
-                  <small *ngIf="isDateUnavailable" class="error-message mt-2 mb-15">The selected date is unavailable. Please choose another date.</small>
+                  <small *ngIf="isDateUnavailable" class="error-message mt-2 mb-15">The selected date is unavailable.
+                    Please choose another date.</small>
                   <app-form-error-msg [control]="appointmentForm.controls['date']"></app-form-error-msg>
                 </div>
               </div>
-
             </div>
 
-          <div class="mb-2" *ngIf="appointmentForm.controls['date'].valid">
-              <small class="text-danger" *ngIf="appointmentForm.controls['time'].hasError('required')">Please choose a time</small>
-          </div>
+            <div class="mb-2" *ngIf="appointmentForm.controls['date'].valid">
+              <small class="text-danger" *ngIf="appointmentForm.controls['time'].hasError('required')">Please choose a
+                time</small>
+            </div>
             <div class="time-slots ">
               <button *ngFor="let slot of availableSlots" type="button" class="btn btn-outline-secondary me-1 mb-1"
                 (click)="selectSlot(slot)" [ngClass]="{'selected-slot': selectedSlot === slot}">
@@ -86,7 +90,7 @@
             </div>
 
             <div class="col-lg-4 col-md-10 col-8 mx-auto">
-              <button type="submit" class="form-control">Submit</button>
+              <button type="submit" class="form-control" (click)="bookAppointment()">Submit</button>
             </div>
           </div>
 

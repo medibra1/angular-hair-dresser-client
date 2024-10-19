@@ -8,6 +8,7 @@ import { FormErrorMsgComponent } from '../form-error-msg/form-error-msg.componen
 import { SettingsService } from '../../services/settings/settings.service';
 import { IAppointmentSetting } from '../../models/appointment-setting';
 
+
 @Component({
   selector: 'app-appointment-form',
   standalone: true,
@@ -29,6 +30,7 @@ export class AppointmentFormComponent {
   selectedSlot: string | null = null;
   // minDate: string = new Date().toISOString().split('T')[0];
   isDateUnavailable = false;
+  dateModel: string | null = null;
 
   loading = false;
   submitted = false;
@@ -37,6 +39,7 @@ export class AppointmentFormComponent {
 
   excludedDates: string[] = [];
   excludedDays: string[] = [];
+
 
   // @ViewChild('dateInput') dateInput!: ElementRef;
   constructor(
@@ -61,10 +64,14 @@ export class AppointmentFormComponent {
     // this.dateInput.nativeElement.value = '';
     // Initialize minDate with today's date
     const today = new Date();
-    this.minDate = this.datePipe.transform(today, 'yyyy-MM-dd')!;
+    this.minDate = this.datePipe.transform(today, 'yyyy-MM-dd');
     this.settingsService.loadAppointmentSettings();
     this.getSettings();
     this.getServices();
+  }
+
+  disableTyping(event: KeyboardEvent): void {
+    event.preventDefault(); // Disable typing
   }
 
   // checkIfSafari(): boolean {
@@ -74,10 +81,10 @@ export class AppointmentFormComponent {
 
   getSettings() {
     this.settingsService.appointementSettings$
-    // .pipe(
-    //   filter(settings => Object.keys(settings).length > 0), // Filtrer les objets non vides
-    //   // take(1)
-    // )
+    .pipe(
+      filter(settings => Object.keys(settings).length > 0), // Filtrer les objets non vides
+      take(1)
+    )
     .subscribe({
       next: settings => {
         this.settings = settings;
@@ -86,6 +93,17 @@ export class AppointmentFormComponent {
     });
   }
 
+  openDatePicker(event: MouseEvent): void {
+      //@ViewChild('dateInput') dateInput: ElementRef; // declare before
+      // this.dateInput.nativeElement.style.display = 'block'; // Show the hidden input
+      // this.dateInput.nativeElement.focus(); // Trigger a click event to open the date picker
+      event.preventDefault();
+      const dateInput = document.getElementById('date-input') as HTMLInputElement;
+      const dateInputBtn = document.getElementById('date-input-btn') as HTMLInputElement;
+      dateInputBtn.style.display = 'none'; 
+      dateInput.style.display = 'block'; 
+      dateInput.focus(); 
+  }
 
   getServices() {
     this.servicesSub =  this.global.services$
@@ -116,15 +134,15 @@ export class AppointmentFormComponent {
   onDateChange(event: any): void {
     // console.log('ON DATE CHANGE: ', this.settings);
     this.selectedDate = event.target.value;
-    const start_time = this.settings.start_time;
+    const start_time = this.settings.start_time ;
     const end_time = this.settings.end_time;
     // const start_time = '10:00';
     // const end_time = '20:00';
     // this.excludedDates = ['2024-05-31', '2024-06-03']; // Dates spécifiques à exclure;
     // this.excludedDays = [7]; // 6 = Samedi, 7 = Dimanche
-    const interval_minute = this.settings.interval || 30;
-    this.excludedDates = this.settings.off_dates; 
-    this.excludedDays = this.settings.off_days; 
+    const interval_minute = this.settings.interval;
+    this.excludedDates = this.settings.off_dates || []; 
+    this.excludedDays = this.settings.off_days || ['']; 
     this.isDateUnavailable = false;
     if (this.isExcludedDate(this.selectedDate)) {
       this.appointmentForm.controls['date'].setValue(null);
@@ -135,7 +153,8 @@ export class AppointmentFormComponent {
     }
 
     console.log('Selected date: ', this.selectedDate);
-    this.appointmentService.getAvailableSlots(this.selectedDate, start_time, end_time, interval_minute ).subscribe({
+    console.log('Type of pause_start_time: ', typeof(this.selectedDate));
+    this.appointmentService.getAvailableSlots(this.selectedDate, start_time, end_time, interval_minute, this.settings.pause_start_time, this.settings.pause_end_time).subscribe({
         next: slots => {
           this.availableSlots = slots.map(slot => this.formatTime(slot));
           console.log('Available slots: ', this.availableSlots);
