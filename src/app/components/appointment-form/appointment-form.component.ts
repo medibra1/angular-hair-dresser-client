@@ -7,12 +7,13 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormErrorMsgComponent } from '../form-error-msg/form-error-msg.component';
 import { SettingsService } from '../../services/settings/settings.service';
 import { IAppointmentSetting } from '../../models/appointment-setting';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @Component({
   selector: 'app-appointment-form',
   standalone: true,
-  imports: [FormErrorMsgComponent, ReactiveFormsModule, CommonModule],
+  imports: [FormErrorMsgComponent, ReactiveFormsModule, CommonModule, BsDatepickerModule],
   providers: [DatePipe],
   templateUrl: './appointment-form.component.html',
   styleUrl: './appointment-form.component.css'
@@ -24,7 +25,8 @@ export class AppointmentFormComponent {
   selectedDate: string;
   servicesSub: Subscription;
   services: any[]  = [];
-  minDate: string = '';
+  // minDate: string = '';
+  minDate: Date = new Date();
   settings: IAppointmentSetting = {} as IAppointmentSetting;
   // slotActive = false;
   selectedSlot: string | null = null;
@@ -63,8 +65,8 @@ export class AppointmentFormComponent {
   ngOnInit(): void {
     // this.dateInput.nativeElement.value = '';
     // Initialize minDate with today's date
-    const today = new Date();
-    this.minDate = this.datePipe.transform(today, 'yyyy-MM-dd');
+    // const today = new Date();
+    // this.minDate = this.datePipe.transform(today, 'yyyy-MM-dd');
     this.settingsService.loadAppointmentSettings();
     this.getSettings();
     this.getServices();
@@ -133,7 +135,20 @@ export class AppointmentFormComponent {
 
   onDateChange(event: any): void {
     // console.log('ON DATE CHANGE: ', this.settings);
-    this.selectedDate = event.target.value;
+    // this.selectedDate = event.target.value;
+
+    if(!event) {
+      return;
+    }
+
+    const year = event.getFullYear();
+    const month = (event.getMonth() + 1).toString().padStart(2, '0'); // Adjust for 0-indexed month
+    const day = event.getDate().toString().padStart(2, '0');
+    // Format the date as a string to match the format in your excludedDates array (yyyy-mm-dd)
+    const formattedDate = `${year}-${month}-${day}`;
+    
+    this.selectedDate = formattedDate;
+
     const start_time = this.settings.start_time ;
     const end_time = this.settings.end_time;
     // const start_time = '10:00';

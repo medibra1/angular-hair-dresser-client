@@ -57,11 +57,12 @@
               </div>
 
               <div class="col-lg-6 col-12">
+                <input type="text" [minDate]="minDate" (bsValueChange)="onDateChange($event)" formControlName="date" placeholder="Select Date"class="form-control" (keydown)="disableTyping($event)" bsDatepicker>
                 <!-- <input type="date" id="bb-date" [min]="minDate" formControlName="date" class="form-control mb-0" (change)="onDateChange($event)" placeholder="Date"> -->
-                <input type="date" placeholder="Date" id="date-input" [min]="minDate" formControlName="date" class="form-control mb-0"
+                <!-- <input type="date" placeholder="Date" id="date-input" [min]="minDate" formControlName="date" class="form-control mb-0"
                   #dateInput style="display: none;" (change)="onDateChange($event)" placeholder="Date">
                 <button (click)="openDatePicker($event)" id="date-input-btn" class="form-control" 
-                [ngClass]="{'error-border': appointmentForm.get('date')?.invalid && appointmentForm.get('date')?.touched}">Choose Date </button>
+                [ngClass]="{'error-border': appointmentForm.get('date')?.invalid && appointmentForm.get('date')?.touched}">Choose Date </button> -->
                 <div class="mb-2">
                   <small *ngIf="isDateUnavailable" class="error-message mt-2 mb-15">The selected date is unavailable.
                     Please choose another date.</small>
