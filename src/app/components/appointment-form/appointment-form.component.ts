@@ -191,6 +191,7 @@ export class AppointmentFormComponent {
     console.log('Selected appointement: ', this.appointmentForm.get('time').value);
     console.log('Appointement Form: ', this.appointmentForm.value);
     if (this.appointmentForm.valid) {
+      this.appointmentForm.controls['date'].setValue(this.selectedDate); // input date retrun string, ngx bootstrap date return date
       this.appointmentService.bookTimeSlot(this.appointmentForm.value).subscribe({
        next: response => {
           console.log('Appointment booked successfully:', response);
