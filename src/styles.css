@@ -22,7 +22,8 @@ nav ul li a.active-nav-scroll {
 .quantity-input {
     /* width: 55px; */
     min-width: 35px;
-    font-size: .85rem;
+    font-size: .8rem;
+    /* border: 1px solid #868686; */
 }
 
 /********** Red border validation ************/

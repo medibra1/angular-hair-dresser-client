@@ -1,11 +1,15 @@
 .img-thumbnail {
-    max-width: 50px;
+    max-width: 40px;
   }
 
 @media screen and (max-width: 1056px) {
   span.text-decoration-line-through {
     display: none;
   }
+}
+
+.btn-close {
+  font-size: .7rem;
 }
 
 
