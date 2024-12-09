@@ -3,15 +3,17 @@ import { ProductItemComponent } from '../../components/product-item/product-item
 import { CommonModule } from '@angular/common';
 import { IProduct } from '../../models/product';
 import { ProductService } from '../../services/product/product.service';
-import { Subscription } from 'rxjs';
+import { filter, Subscription, take } from 'rxjs';
 import { CartService } from '../../services/cart/cart.service';
 import { Router } from '@angular/router';
-import { GlobalService } from '../../services/global/global.service';
+import { VerifyEmailComponent } from '../../components/verify-email/verify-email.component';
+import { ProfileService } from '../../services/profile/profile.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductItemComponent, CommonModule],
+  imports: [ProductItemComponent, CommonModule, VerifyEmailComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -29,12 +31,23 @@ export class ProductsComponent {
 
   private cartService = inject(CartService);
   private router = inject(Router);
-  private global = inject(GlobalService);
 
-  constructor() {}
+  private profileService = inject(ProfileService);
+  profile: User;
+
+  displayVerifyEmailModal = false;
+  navFromSignup = false;
+
+  constructor() {
+    const navigation = this.router.getCurrentNavigation();
+    console.log('Navigation form : ', navigation?.extras?.state?.['from']);
+    if (navigation?.extras?.state?.['from'] === 'signup') {
+      // this.displayVerifyEmailModal = true;
+      this.navFromSignup = true;
+    }
+  }
 
   async ngOnInit() {
-    console.log('CURENNT ROUTE: ', this.router);
     this.productSub = this.productService.products.subscribe({
       next: products => {
         // products.forEach( p => {
@@ -48,6 +61,24 @@ export class ProductsComponent {
       error: (err) => console.error('Error fetching products', err)
     });
     await this.productService.getProducts();
+    await this.profileService.getProfile();
+    this.getProfile();
+    if(this.navFromSignup) this.displayVerifyEmailModal = true;
+  }
+
+  async getProfile() {
+    // await this.profileService.getProfile();
+    this.profileService.profile
+    .pipe(
+      filter(profile => Object.keys(profile).length > 0), // Filtrer les objets non vides
+      take(1)
+    )
+    .subscribe({
+      next: (profile) => {
+        this.profile = profile;
+        console.log('profile data home - component: ', this.profile);
+      },
+    });
   }
 
   // imageUrl(img) {
@@ -77,6 +108,10 @@ export class ProductsComponent {
     console.log('add to cart product list', product);
     this.cartService.addToCart(product);
     this.router.navigateByUrl('/cart');
+  }
+
+  closeVerifyEmailModal() {
+    this.displayVerifyEmailModal = false;
   }
 
   //images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/1930/800`);

@@ -1,0 +1,28 @@
+<!-- <div>
+  <h2>Paiement</h2>
+  <div id="card-element"></div>
+  <button (click)="handlePayment()">Payer</button>
+</div> -->
+
+<section class="section-padding">
+  <div class="container mt-4">
+    <h4>Checkout</h4>
+
+    <p>Pay <b>{{paymentData.amount}} kr</b> For: {{paymentData.description}}</p>
+    
+    <form (submit)="handlePayment($event)">
+      <div id="payment-element" class="mt-3 mb-3"></div>
+      <button type="submit" class="btn btn-primary" [disabled]="loading || !clientSecret">
+        {{ loading ? 'Processing...' : 'Pay ' +paymentData.amount + ' kr' }}
+      </button>
+    </form>
+    
+    <div *ngIf="paymentSuccessful" class="alert alert-success mt-3">
+      Payment successful!
+    </div>
+    
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </div>
+</section>

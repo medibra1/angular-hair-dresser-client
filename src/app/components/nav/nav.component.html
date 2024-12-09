@@ -70,12 +70,18 @@
           href="javascript:void(0)">Appointement</a>
       </li>
 
-      <!-- <li class="nav-item"  (click)="toggleMenu()">
-        <a class="nav-link" [routerLink]="['/auth']" routerLinkActive="active-link" href="javascript:void(0)">Login</a>
-      </li> -->
+      <li *ngIf="profile" class="nav-item "  (click)="toggleMenu()">
+        <a class="nav-link" [routerLink]="['/profile']" routerLinkActive="active-link" href="javascript:void(0)">
+          <i class="bi bi-person" style="font-size: 1.5rem;"></i> {{(profile?.name).split(' ')[0]}}</a>
+      </li>
 
-      <li class="nav-item "  (click)="toggleMenu()">
-        <a class="nav-link" [routerLink]="['/cart']" routerLinkActive="active-link" href="javascript:void(0)">
+      <li *ngIf="!profile" class="nav-item " (click)="toggleMenu()">
+        <a class="nav-link" [routerLink]="['/auth']" routerLinkActive="active-link" href="javascript:void(0)">
+          <i class="bi bi-person" style="font-size: 1.5rem;"></i> Login</a>
+      </li>
+
+      <li class="nav-item " (click)="toggleMenu()">
+        <a class="nav-link" [routerLink]="['/cart']" [ngClass]="{'active-link': isCheckoutOrCart()}" href="javascript:void(0)">
           <i class="bi bi-cart relative"></i>
           <span class="cart-item-number absolute">{{cartItemCount}}</span>
         </a>

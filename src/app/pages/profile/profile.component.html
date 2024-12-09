@@ -1,0 +1,103 @@
+<section class="section-padding">
+        
+    <app-alert *ngIf="(successMessage || errorMessage.length > 0) && !profile?.email_verified" 
+        [errorMessage]="errorMessage" 
+        [successMessage]="successMessage" 
+        [actionTitle]="'Verify Now'"
+        (btnClicked)="displayVerifyEmailModal = true"
+        [duration]="null">
+    </app-alert>
+
+        <div class="card">
+        
+            <div class="card-header text-white bg-info mb-3"><span class="text-uppercase">{{profile?.name }}</span> Profile
+                Inoformation</div>
+        
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 offset-md-2">
+        
+                        <div class="row">
+                            <div class="col-md-4 col-3">Name:</div>
+                            <div class="col-md-8 col-9"> {{profile?.name}} </div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-md-4 col-3">Email:</div>
+                            <div class="col-md-8 col-9"> {{profile?.email}} </div>
+                        </div>
+        
+                        <div class="row" *ngIf="profile?.phone">
+                            <div class="col-md-4 col-3">Phone:</div>
+                            <div class="col-md-8 col-9"> {{profile?.phone}}</div>
+                        </div>
+        
+                        <div class="row" *ngIf="profile?.city">
+                            <div class="col-md-4 col-3">City:</div>
+                            <div class="col-md-8 col-9"> {{profile?.city}}</div>
+                        </div>
+        
+                        <div class="row" *ngIf="profile?.address">
+                            <div class="col-md-4 col-3">Address:</div>
+                            <div class="col-md-8 col-9"> {{profile?.address}}</div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-md-4 col-3">Email verfied:</div>
+                            <div class="col-md-8 col-9"> {{profile?.email_verified ? 'Yes' : 'No'}}</div>
+                        </div>
+        
+                        <!-- <div class="row">
+                            <div class="col-md-4">Role:</div>
+                            <div class="col-md-8"> {{ profile?.type == '1' ? 'SupAdmin' : profile?.type == '2' ? 'Admin' : profile?.type == '3' ? 'User' : '' }} </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">Status:</div>
+                            <div class="col-md-8"> {{ profile?.status == '1' ? 'Activated' : 'Not Activated' }}</div>
+                        </div> -->
+        
+                    </div>
+                    <div class="col-md-2 mt-3">
+                        <img [src]="profile?.photo ? profile?.photo : '' " [title]="profile?.name" class="card-img-top"
+                            [alt]="profile?.name">
+                    </div>
+                </div>
+            </div>
+        
+            <div class="card-footer">
+                <button class="btn btn-outline-primary ms-2 mb-sm-0 mb-2" (click)=" displayUpdateProfileModal = true;">
+                    <span><i class="bx bx-edit-alt"></i> Edit profile</span>
+                </button>
+                <button class="btn btn-outline-success ms-2 mb-sm-0 mb-2" (click)="displayUpdatePwdModal = true">
+                    <span><i class="bx bx-key"></i> change Password</span>
+                </button>
+                <button *ngIf="!profile?.email_verified" class="btn btn-danger ms-2 mb-sm-0 mb-2" (click)="displayVerifyEmailModal = true">
+                    <span><i class="bx bx-check"></i> Verify Email</span>
+                </button>
+                <button class="btn btn-outline-warning ms-2 mb-sm-0 mb-2" (click)="logout()">
+                    <span><i class="bx bx-key"></i> Logout</span>
+                </button>
+            </div>
+        
+        </div>
+        
+        <app-modal2 *ngIf="displayUpdateProfileModal" 
+            [title]="'Edit '+profile?.name+' Profile Info'" 
+            [size]="'lg'" [template]="modal"
+            (closeModal)="closeModal()"></app-modal2>
+        <ng-template #modal>
+            <app-profile-form [profile]="profile" [profileService]="profileService" (updateProfileReponse)="closeModal($event)"></app-profile-form>
+        </ng-template>
+        
+        <app-modal2 *ngIf="displayUpdatePwdModal" 
+        [title]="'Update Password'"
+        [size]="'lg'" 
+        [template]="updatePwdModal"
+        (closeModal)="closeModal()"></app-modal2>
+        <ng-template #updatePwdModal> 
+            <app-update-password-form (updatePasswordReponse)="closeModal($event)"></app-update-password-form>
+        </ng-template>
+
+        <app-verify-email *ngIf="displayVerifyEmailModal" (closeModalClicked)="closeVerifyEmailModal()" [email]="profile.email"></app-verify-email>
+
+</section>

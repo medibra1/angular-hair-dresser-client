@@ -29,7 +29,18 @@
       class="btn btn-primary mb-3"
       [disabled]="loginForm.invalid || submitted">Login</button>
     <!-- <a routerLink="/auth/forgot-password" class="btn btn-link">Forgot Password?</a> -->
-    <a class="btn btn-link">Forgot Password?</a>
+    <a class="btn btn-link" (click)="displayModal = true">Forgot Password?</a>
   </div>
 </form>
+
+<app-modal2 *ngIf="displayModal" [title]="modalTtile" [showFooter]="false" [size]="'lg'" [template]="modal"
+  (closeModal)="displayModal = false">
+
+  <ng-template #modal>
+    <app-reset-password [model]="reset_pwd_model" (check_email)="sendResetPasswordEmailOtp($event)"
+      (verify_otp)="verifyResetPasswordOtp($event)" (set_password)="resetPassword($event)">
+    </app-reset-password>
+  </ng-template>
+
+</app-modal2>
 

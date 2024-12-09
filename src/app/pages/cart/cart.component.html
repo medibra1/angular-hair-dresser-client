@@ -1,56 +1,53 @@
-
 <section class="section-padding">
+
+  <app-alert *ngIf="(successMessage || errorMessage.length > 0) && !profile.email_verified"
+    [errorMessage]="errorMessage" [successMessage]="successMessage" [actionTitle]="'Verify Now'"
+    (btnClicked)="displayVerifyEmailModal = true" [duration]="null">
+  </app-alert>
 
   <div class="container mt-4" *ngIf="cartItems.length > 0; else emptyCart">
     <h3>Your cart</h3>
-    <div class="row">
-      <div class="col-12">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of cartItems">
-                <td>
-                  <button type="button" class="btn-close me-2" (click)="removeItem(item)"></button>
-                  <img [src]="item.images[0]" alt="{{ item.name }}" class="img-thumbnail me-2" style="width: 30px;">
-                  {{ item.name }}
-                  <small *ngIf="item.selected_model || item.selected_color">({{ item.selected_model ?  'item.selected_model'+', ' : ''}}{{ item.selected_color }}) </small>
-                </td>
-                <td>
-                  <span class="text-nowrap" *ngIf="item.promo_price" class="text-muted text-decoration-line-through">{{ item.price }} kr</span>
-                  <span class="text-danger text-nowrap ms-2">{{ item.promo_price ? item.promo_price: item.price }} kr</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm" (click)="decrementQuantity(item)">-</button>
-                    <span class="btn btn-outline-secondary btn-sm mx-1 text-center quantity-input">{{item.quantity}}</span>
-                    <!-- <input type="text" class="form-control mx-2 text-center quantity-input" [value]="item.quantity" readonly> -->
-                    <button class="btn btn-outline-secondary btn-sm" (click)="incrementQuantity(item)">+</button>
-                  </div>
-                </td>
-                <td class="text-nowrap">{{ (item.promo_price ? item.promo_price : item.price) * item.quantity }} kr</td>
-              </tr>
-              <tr>
-                <td colspan="3" class="text-end fw-bold">Delivery charge:</td>
-                <td> {{deliveryCharge }} kr</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-          <button class="btn btn-secondary btn-sm me-sm-0 me-sm-2" (click)="clearCart()">Clear cart</button>
-          <h6>Total: {{ totalPrice }} kr</h6>
-          <button class="btn btn-primary btn-sm" (click)="proceedToCheckout()">Make Payment</button>
+
+    <div *ngFor="let item of cartItems" class="cart-item p-2 d-flex flex-row align-items-center border-bottom">
+      <button class="btn-close me-2" (click)="removeItem(item)"></button>
+
+      <img [src]="item.images[0]" alt="{{ item.name }}" class="cart-item-image rounded" />
+
+      <div class="cart-item-details ms-3">
+        <h6 class="item-name mb-1">
+          {{ item.name }}
+          <small *ngIf="item.selected_model || item.selected_color">
+            ({{ item.selected_model ? item.selected_model + ', ' : ''}}{{ item.selected_color }})
+          </small>
+        </h6>
+
+        <div class="d-flex align-items-center flex-wrap">
+          <div class="me-3">
+            <small *ngIf="item.promo_price" class="text-muted text-decoration-line-through text-nowrap">{{ item.price }}
+              kr</small>
+            <span class="text-danger text-nowrap">{{ item.promo_price ? item.promo_price : item.price }} kr</span>
+          </div>
+
+          <div class="d-flex align-items-center me-3">
+            <button class="btn btn-outline-secondary btn-sm" (click)="decrementQuantity(item)">-</button>
+            <span class="btn btn-outline-secondary btn-sm mx-1 text-center quantity-input">{{ item.quantity }}</span>
+            <button class="btn btn-outline-secondary btn-sm" (click)="incrementQuantity(item)">+</button>
+          </div>
+
+          <div class="item-quantity-total">
+            <span class="text-nowrap">Subtotal: {{ (item.promo_price ? item.promo_price : item.price) * item.quantity }}
+              kr</span>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-2">
+      <button class="btn btn-secondary btn-sm me-sm-0 me-sm-2" (click)="clearCart()">Clear cart</button>
+      <h6>Total: {{ totalPrice }} kr</h6>
+      <button class="btn btn-primary btn-sm" (click)="proceedToCheckout()">Make Payment</button>
+    </div>
+
   </div>
   <ng-template #emptyCart>
     <div class="container mt-4 text-center">
@@ -58,8 +55,30 @@
       <a routerLink="/products" class="btn btn-primary">Continue your purchases</a>
     </div>
   </ng-template>
-  
+
 </section>
 
+<app-verify-email *ngIf="displayVerifyEmailModal" (closeModalClicked)="closeVerifyEmailModal()"
+  [email]="profile.email"></app-verify-email>
 
-  
+<!-- <tr *ngFor="let item of cartItems">
+  <td>
+    <button type="button" class="btn-close me-2" (click)="removeItem(item)"></button>
+    <img [src]="item.images[0]" alt="{{ item.name }}" class="img-thumbnail me-2" style="width: 30px;">
+    {{ item.name }}
+    <small *ngIf="item.selected_model || item.selected_color">({{ item.selected_model ?  'item.selected_model'+', ' : ''}}{{ item.selected_color }}) </small>
+  </td>
+  <td>
+    <span class="text-nowrap" *ngIf="item.promo_price" class="text-muted text-decoration-line-through">{{ item.price }} kr</span>
+    <span class="text-danger text-nowrap ms-2">{{ item.promo_price ? item.promo_price: item.price }} kr</span>
+  </td>
+  <td>
+    <div class="d-flex align-items-center">
+      <button class="btn btn-outline-secondary btn-sm" (click)="decrementQuantity(item)">-</button>
+      <span class="btn btn-outline-secondary btn-sm mx-1 text-center quantity-input">{{item.quantity}}</span>
+      <button class="btn btn-outline-secondary btn-sm" (click)="incrementQuantity(item)">+</button>
+    </div>
+  </td>
+  <td class="text-nowrap">{{ (item.promo_price ? item.promo_price : item.price) * item.quantity }} kr</td>
+</tr>
+<tr> -->

@@ -82,5 +82,5 @@
   
 </section>
 
-<app-modal *ngIf="displayModal" [title]="modalTitle" [content]="modalContent" [size]="modalSize"
+<app-modal *ngIf="displayModal && this.product?.reviews" [title]="modalTitle" [content]="modalContent" [size]="modalSize"
   (closeModal)="closeModal()"></app-modal>

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { IProduct } from '../../models/product';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { EncryptionService } from '../../services/encryption/encryption.service';
 
 @Component({
   selector: 'app-product-item',
@@ -15,6 +16,8 @@ export class ProductItemComponent {
   @Input() item: IProduct;
   @Output() addToCart: EventEmitter<any> = new EventEmitter();
   // private global = inject(GlobalService);
+  private router = inject(Router);
+  private encryptionService = inject(EncryptionService);
   
   getTagClass(tag: string): string {
     switch (tag.toLowerCase()) {
@@ -38,7 +41,20 @@ export class ProductItemComponent {
     this.addToCart.emit(this.item);
   }
 
-  makePayment(product) {
+  makePayment(product: IProduct) {
+    const data = {
+      amount: product.promo_price ? +product.promo_price : +product.price,
+      description: product.name
+    };
+    console.log('Product to by form product component: ', data);
+    const encryptedData = this.encryptionService.encrypt(data);
+    const navData = {
+      queryParams: {
+        data: encryptedData,
+        // data: btoa(JSON.stringify(data)),
+      },
+    };
+    this.router.navigate(['/checkout'], navData);
 
   }
 

@@ -23,3 +23,9 @@
         </div>
     </div>
 </section>
+
+<app-verify-email 
+    *ngIf="displayVerifyEmailModal" 
+    (closeModalClicked)="closeVerifyEmailModal()"
+    [email]="profile?.email">
+</app-verify-email>

@@ -12,11 +12,14 @@
         <!-- NAV -->
 
         <div class="col-md-8 ms-sm-auto col-lg-9 p-0">
-            <app-hero [settings]="settings"></app-hero>
+            <app-hero *ngIf="showHero" [settings]="settings"></app-hero>
             <router-outlet></router-outlet>
             <app-footer [settings]="settings"></app-footer>
         </div>
     </div>
 </div>
 <!-- TODO: added 2 /DIV -->
+
+<app-toast></app-toast>
+
 <app-loader></app-loader>

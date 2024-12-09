@@ -12,8 +12,8 @@ export class GlobalService {
   activeSection$ = this.activeSectionSource.asObservable();
   private loading: boolean = false;
 
-  private readonly products_api_url = 'api/site_settings';
-  private readonly services_api_url = 'api/services';
+  // private readonly products_api_url = 'api/site_settings';
+  // private readonly services_api_url = 'api/services';
   private api = inject(ApiService);
 
   private servicesSubject: BehaviorSubject<any> = new BehaviorSubject<any>([]);

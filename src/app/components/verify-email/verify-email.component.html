@@ -1,0 +1,25 @@
+<app-modal2 [title]="'Verify Email'" [size]="'lg'" 
+        [template]="modal"
+        [displaySaveBtn]="true" 
+        [saveBtnTitle]="'Verify'"
+        (saveData)="handleVerifyEmail()" 
+        [disabled]="disabledVerifyBtn"
+        (closeModal)="closeModal()">
+            <ng-template #modal>
+                <p class="text-center">Enter the verification code sent to your email.</p>
+                <div class="otp-container">
+                    <app-otp-input (length)="getOtpLength($event)" 
+                    (otp)="onOtpChange($event)">
+                    </app-otp-input>
+                    <!-- <button class="btn btn-primary" [disabled]="otp?.length != 6" (click)="handleVerifyEmail()">Verify</button> -->
+                    <div>
+                        <button 
+                          [disabled]="countdownService.timeRemaining > 0" 
+                          (click)="sendOtp()" 
+                          class="btn btn-secondary">
+                          {{ countdownService.timeRemaining > 0 ? 'Resend OTP in ' + countdownService.formatTime(countdownService.timeRemaining) : 'Resend OTP' }}
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+ </app-modal2>
